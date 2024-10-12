@@ -7,3 +7,4 @@ export default function createReportObject(employeesList) {
       return Object.keys(employeesList).length;
     },
   };
+}
