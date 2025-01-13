@@ -1,8 +1,17 @@
-class ALXCourse {
+export default class ALXCourse {
   constructor(name, length, students) {
-    this._name = this._verifyString(name, 'name');
-    this._length = this._verifyNumber(length, 'length');
-    this._students = this._verifyArray(students, 'students');
+    if (typeof name !== 'string') {
+      throw new TypeError('Name must be a string');
+    }
+    if (typeof length !== 'number') {
+      throw new TypeError('Length must be a number');
+    }
+    if (!Array.isArray(students) || !students.every(student => typeof student === 'string')) {
+      throw new TypeError('Students must be an array of strings');
+    }
+    this._name = name;
+    this._length = length;
+    this._students = students;
   }
 
   get name() {
@@ -10,7 +19,10 @@ class ALXCourse {
   }
 
   set name(newName) {
-    this._name = this._verifyString(newName, 'name');
+    if (typeof newName !== 'string') {
+      throw new TypeError('Name must be a string');
+    }
+    this._name = newName;
   }
 
   get length() {
@@ -18,37 +30,20 @@ class ALXCourse {
   }
 
   set length(newLength) {
-    this._length = this._verifyNumber(newLength, 'length');
+    if (typeof newLength !== 'number') {
+      throw new TypeError('Length must be a number');
+    }
+    this._length = newLength;
   }
 
   get students() {
-    return [...this._students];
+    return this._students;
   }
 
   set students(newStudents) {
-    this._students = this._verifyArray(newStudents, 'students');
-  }
-
-  _verifyString(value, attributeName) {
-    if (typeof value !== 'string') {
-      throw new TypeError(`${attributeName} must be a string`);
+    if (!Array.isArray(newStudents) || !newStudents.every(student => typeof student === 'string')) {
+      throw new TypeError('Students must be an array of strings');
     }
-    return value;
-  }
-
-  _verifyNumber(value, attributeName) {
-    if (typeof value !== 'number') {
-      throw new TypeError(`${attributeName} must be a number`);
-    }
-    return value;
-  }
-
-  _verifyArray(value, attributeName) {
-    if (!Array.isArray(value)) {
-      throw new TypeError(`${attributeName} must be an array`);
-    }
-    return value;
+    this._students = newStudents;
   }
 }
-
-export default ALXCourse;
