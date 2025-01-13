@@ -24,7 +24,7 @@ class Airport {
     return `[${this._code}]`;
   }
 
-  static _verifyString(value, attributeName) {
+  _verifyString(value, attributeName) { // Correct: Instance method
     if (typeof value !== 'string') {
       throw new TypeError(`${attributeName} must be a string`);
     }
