@@ -1,7 +1,10 @@
-import Currency from './3-currency'; //import is used intentially
+import Currency from './3-currency';
 
 class Pricing {
   constructor(amount, currency) {
+    if (!(currency instanceof Currency)) {
+      throw new TypeError("Currency must be a Currency object");
+    }
     this._amount = amount;
     this._currency = currency;
   }
