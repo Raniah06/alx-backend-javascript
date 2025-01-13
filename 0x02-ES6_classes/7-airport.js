@@ -24,12 +24,14 @@ class Airport {
     return `[${this._code}]`;
   }
 
-    _verifyString(value, attributeName) {
+  static _verifyString(value, attributeName) {
     if (typeof value !== 'string') {
       throw new TypeError(`${attributeName} must be a string`);
     }
     return value;
   }
 }
+
+Airport.prototype[Symbol.toStringTag] = 'Airport';
 
 export default Airport;
