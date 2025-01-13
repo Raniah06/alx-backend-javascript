@@ -24,7 +24,7 @@ class Airport {
     return `[${this._code}]`;
   }
 
-  _verifyString(value, attributeName) { // Correct: Instance method
+  static _verifyString(value, attributeName) { // Make it static and use this.
     if (typeof value !== 'string') {
       throw new TypeError(`${attributeName} must be a string`);
     }
@@ -32,6 +32,6 @@ class Airport {
   }
 }
 
-Airport.prototype[Symbol.toStringTag] = 'Airport';
+Airport.prototype[Symbol.toStringTag] = 'Airport'; // Add toStringTag
 
 export default Airport;
