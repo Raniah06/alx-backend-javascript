@@ -1,37 +1,10 @@
-class Airport {
+export default class Airport {
   constructor(name, code) {
-    this._name = this._verifyString(name, 'name');
-    this._code = this._verifyString(code, 'code');
-  }
-
-  get name() {
-    return this._name;
-  }
-
-  set name(newName) {
-    this._name = this._verifyString(newName, 'name');
-  }
-
-  get code() {
-    return this._code;
-  }
-
-  set code(newCode) {
-    this._code = this._verifyString(newCode, 'code');
+    this._name = name;
+    this._code = code;
   }
 
   toString() {
-    return `[${this._code}]`;
-  }
-
-  static _verifyString(value, attributeName) { // Make it static and use this.
-    if (typeof value !== 'string') {
-      throw new TypeError(`${attributeName} must be a string`);
-    }
-    return value;
+    return `[object ${this._code}]`;
   }
 }
-
-Airport.prototype[Symbol.toStringTag] = 'Airport'; // Add toStringTag
-
-export default Airport;
