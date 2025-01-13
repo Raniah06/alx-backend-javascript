@@ -1,9 +1,9 @@
-const ClassRoom = require('./0-classroom');
-function initializeRooms() {
-  return [
-    new ClassRoom(10),
-    new ClassRoom(20),
-    new ClassRoom(30),
+import ClassRoom from './0-classroom.js';
+
+export default function initializeRooms() {
+  return [new ClassRoom(19), 
+	  new ClassRoom(20), 
+	  new ClassRoom(34)
   ];
 }
-module.exports = initializeRooms;
+
