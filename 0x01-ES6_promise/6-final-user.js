@@ -7,10 +7,10 @@ export default async function handleProfileSignup(firstName, lastName, fileName)
     uploadPhoto(fileName),
   ];
 
-  return Promise.allSettled(promises).then((results) => {
+  return Promise.allSettled(promises).then((results) => 
     return results.map((result) => ({ // Concise arrow function here
       status: result.status,
       value: result.status === 'fulfilled' ? result.value : String(result.reason),
     }));
-  });
+  );
 }
