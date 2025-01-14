@@ -1,9 +1,11 @@
-const employees = {
-  ...createEmployeesObject('engineering', ['Bob', 'Jane']),
-  ...createEmployeesObject('marketing', ['Sylvie']),
-};
+import createEmployeesObject from './11-createEmployeesObject';
+import createReportObject from './12-createReportObject';
+import createIteratorObject from './100-createIteratorObject';
 
-const report = createReportObject(employees);
-const reportWithIterator = createIteratorObject(report);
-
-console.log(iterateThroughObject(reportWithIterator));
+export default function iterateThroughObject(reportWithIterator) {
+  const employees = [];
+  for (const employee of reportWithIterator) {
+    employees.push(employee);
+  }
+  return employees.join(' | ');
+}
