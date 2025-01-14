@@ -8,9 +8,11 @@ export default async function handleProfileSignup(firstName, lastName, fileName)
   ];
 
   return Promise.allSettled(promises).then((results) =>
-    results.map((result) => ({
-      status: result.status,
-      value: result.status === 'fulfilled' ? result.value : String(result.reason),
-    }))
+    results.map((result) => {
+      return {
+        status: result.status,
+        value: result.status === 'fulfilled' ? result.value : String(result.reason),
+      };
+    })
   );
 }
