@@ -6,7 +6,7 @@ export default function createIteratorObject(report) {
     next() {
       if (index < employees.length) {
         const value = employees[index];
-        index = index + 1;
+        index += 1;
         return { value, done: false };
       }
       return { done: true };
