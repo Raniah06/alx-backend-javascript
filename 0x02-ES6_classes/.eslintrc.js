@@ -27,7 +27,7 @@ module.exports = {
 		'LabeledStatement',
 		'WithStatement',
 	  ],
-	  'class-methods-use-this': 'off',
+	  'class-methods-use-this': 'off', 
 	  'no-unused-vars':'off'
 	},
 	overrides:[
