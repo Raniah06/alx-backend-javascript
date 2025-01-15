@@ -6,17 +6,19 @@ describe('getPaymentTokenFromAPI', () => {
     getPaymentTokenFromAPI(true)
       .then((response) => {
         expect(response).to.have.property('data', 'Successful response from the API');
-        done(); // Indicate that the test has finished
+        done(); // Indicate the test is complete
       })
-      .catch(done); // Ensure any errors are handled and propagate to the test framework
+      .catch(done); // Catch and propagate errors
   });
 
-  it('should do nothing when success is false', (done) => {
+  it('should return an error message when success is false', (done) => {
     getPaymentTokenFromAPI(false)
-      .then((response) => {
-        expect(response).to.be.undefined; // Since the promise does nothing, we expect undefined
-        done();
+      .then(() => {
+        done(new Error('Expected promise to be rejected'));
       })
-      .catch(done);
+      .catch((error) => {
+        expect(error).to.equal('API call failed');
+        done(); // Indicate the test is complete
+      });
   });
 });
