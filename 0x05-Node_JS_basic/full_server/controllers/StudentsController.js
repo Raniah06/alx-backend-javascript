@@ -1,33 +1,36 @@
 import { readDatabase } from '../utils';
 
-class StudentsController {
+export default class StudentsController {
   static async getAllStudents(req, res) {
     try {
-      const database = await readDatabase();
-      let responseText = 'This is the list of our students\n';
-      Object.keys(database).forEach((field) => {
-        const students = database[field].map((student) => student.firstname).join(', ');
-        responseText += `Number of students in ${field}: ${database[field].length}. List: ${students}\n`;
-      });
-      res.status(200).send(responseText);
+      const studentsByField = await readDatabase('./database.csv');
+      res.status(200).send(
+        `This is the list of our students\n` +
+        Object.keys(studentsByField).sort().map((field) => {
+          return `Number of students in ${field}: ${studentsByField[field].length}. List: ${studentsByField[field].join(', ')}`;
+        }).join('\n')
+      );
     } catch (error) {
-      res.status(500).send('Cannot load the database');
+      res.status(500).send(error);
     }
   }
 
   static async getAllStudentsByMajor(req, res) {
     const { major } = req.params;
+
     if (major !== 'CS' && major !== 'SWE') {
       return res.status(500).send('Major parameter must be CS or SWE');
     }
+
     try {
-      const database = await readDatabase();
-      const students = database[major].map((student) => student.firstname).join(', ');
-      res.status(200).send(`List: ${students}`);
+      const studentsByField = await readDatabase('./database.csv');
+      if (studentsByField[major]) {
+        res.status(200).send(`List: ${studentsByField[major].join(', ')}`);
+      } else {
+        res.status(500).send('Cannot load the database');
+      }
     } catch (error) {
-      res.status(500).send('Cannot load the database');
+      res.status(500).send(error);
     }
   }
 }
-
-export default StudentsController;
