@@ -19,11 +19,11 @@ function countStudents(path) {
       }
     }
 
-    console.log('Number of students: ' + students.length);
+    console.log(`Number of students: ${students.length}`);
 
     for (const field in fields) {
       if (Object.prototype.hasOwnProperty.call(fields, field)) {
-        console.log('Number of students in ' + field + ': ' + fields[field].length + '. List: ' + fields[field].join(', '));
+        console.log(`Number of students in ${field}: ${fields[field].length}. List: ${fields[field].join(', ')}`);
       }
     }
   } catch (error) {
