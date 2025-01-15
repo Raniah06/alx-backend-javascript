@@ -1,10 +1,11 @@
 import fs from 'fs';
 
-export function readDatabase(filePath) {
+export function readDatabase() {
+  const filePath = process.argv[2];  // Dynamically use the passed filename
   return new Promise((resolve, reject) => {
     fs.readFile(filePath, 'utf-8', (err, data) => {
       if (err) {
-        reject('Error reading the database file');
+        reject('Cannot load the database');
       }
 
       const students = data.trim().split('\n').map((line) => line.split(','));
