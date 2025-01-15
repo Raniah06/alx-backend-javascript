@@ -11,6 +11,11 @@ const countStudents = (path) => new Promise((resolve, reject) => {
     const lines = data.trim().split('\n');
     const students = lines.slice(1).filter((line) => line.trim() !== '');
 
+    if (students.length === 0) {
+      reject(new Error('No students found'));
+      return;
+    }
+
     const fields = {};
     for (const student of students) {
       const values = student.split(',');
@@ -35,7 +40,7 @@ const app = http.createServer((req, res) => {
   } else if (req.url === '/students') {
     countStudents(process.argv[2])
       .then(({ numStudents, fields }) => {
-        let response = 'This is the list of our students\n';
+        let response = `This is the list of our students\n`;
         response += `Number of students: ${numStudents}\n`;
         for (const field in fields) {
           if (Object.prototype.hasOwnProperty.call(fields, field)) {
@@ -47,7 +52,7 @@ const app = http.createServer((req, res) => {
       })
       .catch((error) => {
         res.writeHead(500, { 'Content-Type': 'text/plain' });
-        res.end(error.message + '\n');
+        res.end(`${error.message}\n`);
       });
   } else {
     res.writeHead(404, { 'Content-Type': 'text/plain' });
