@@ -1,20 +1,13 @@
-console.log('Welcome to Holberton School, what is your name?');
-
-process.stdin.setEncoding('utf-8');
-
-let name = '';
+console.log('Welcome to Holberton School, what is your name?\n');
 
 process.stdin.on('readable', () => {
-    const chunk = process.stdin.read();
-    if (chunk !== null) {
-        name += chunk;
-    }
+  const chunk = process.stdin.read();
+
+  if (chunk) {
+    process.stdout.write(`Your name is: ${chunk}`);
+  }
 });
 
 process.stdin.on('end', () => {
-    name = name.trim();
-    if (name) {
-        console.log('Your name is: ' + name); // Explicit string concatenation
-    }
-    console.log('This important software is now closing');
+  console.log('This important software is now closing\n');
 });
