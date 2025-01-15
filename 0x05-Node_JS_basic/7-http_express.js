@@ -10,7 +10,6 @@ const countStudents = (path) => new Promise((resolve, reject) => {
       reject(new Error('Cannot load the database'));
       return;
     }
-
     const lines = data.trim().split('\n');
     const students = lines.slice(1).filter((line) => line.trim() !== '');
     
