@@ -1,7 +1,10 @@
 console.log('Welcome to Holberton School, what is your name?');
 
+process.stdin.resume();
+process.stdin.setEncoding('utf8');
+
 process.stdin.on('data', (data) => {
-  const name = data.toString().trim();
+  const name = data.trim();
   console.log(`Your name is: ${name}`);
 });
 
