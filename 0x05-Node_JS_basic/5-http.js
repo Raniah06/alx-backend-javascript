@@ -1,6 +1,5 @@
 const http = require('http');
 const fs = require('fs');
-const path = require('path');
 
 function countStudents(filePath) {
   return new Promise((resolve, reject) => {
@@ -10,14 +9,14 @@ function countStudents(filePath) {
         return;
       }
 
-      const lines = data.trim().split('\n').filter(line => line);
+      const lines = data.trim().split('\n').filter((line) => line);
       if (lines.length === 0) {
         reject(new Error('Database is empty'));
         return;
       }
 
-      const fields = lines[0].split(','); // Header line
-      const students = lines.slice(1).map(line => line.split(','));
+      const fields = lines[0].split(',');
+      const students = lines.slice(1).map((line) => line.split(','));
       const groups = {};
 
       students.forEach((student) => {
@@ -38,7 +37,7 @@ function countStudents(filePath) {
 const app = http.createServer((req, res) => {
   if (req.url === '/') {
     res.writeHead(200, { 'Content-Type': 'text/plain' });
-    res.end('Hello ALX!');
+    res.end('Hello Holberton School!');
   } else if (req.url === '/students') {
     const dbFile = process.argv[2];
     if (!dbFile) {
@@ -52,9 +51,9 @@ const app = http.createServer((req, res) => {
         res.writeHead(200, { 'Content-Type': 'text/plain' });
         res.end(`This is the list of our students\n${data}`);
       })
-      .catch((err) => {
-        res.writeHead(500, { 'Content-Type': 'text/plain' });
-        res.end(err.message);
+      .catch(() => {
+        res.writeHead(200, { 'Content-Type': 'text/plain' });
+        res.end(`This is the list of our students\nCannot load the database`);
       });
   } else {
     res.writeHead(404, { 'Content-Type': 'text/plain' });
