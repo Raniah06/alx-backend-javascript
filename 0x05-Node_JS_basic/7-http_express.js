@@ -12,8 +12,7 @@ const countStudents = (path) => new Promise((resolve, reject) => {
     }
 
     const lines = data.trim().split('\n');
-    const students = lines.slice(1).filter((line) => line.trim() !== '');
-    
+    const students = lines.slice(1).filter((line) => line.trim() !== ''); 
     if (students.length === 0) {
       reject(new Error('No students found'));
       return;
