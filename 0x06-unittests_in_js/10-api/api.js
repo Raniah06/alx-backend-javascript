@@ -4,7 +4,12 @@ const app = express();
 // Middleware to parse JSON bodies
 app.use(express.json());
 
-// GET /available_payments
+// Route GET /
+app.get('/', (req, res) => {
+  res.status(200).send('Welcome to the payment system');
+});
+
+// Route GET /available_payments
 app.get('/available_payments', (req, res) => {
   const paymentMethods = {
     payment_methods: {
@@ -15,7 +20,7 @@ app.get('/available_payments', (req, res) => {
   res.status(200).json(paymentMethods);
 });
 
-// POST /login
+// Route POST /login
 app.post('/login', (req, res) => {
   const { userName } = req.body;
   if (userName) {
@@ -25,7 +30,7 @@ app.post('/login', (req, res) => {
   }
 });
 
-// GET /cart/:id (Only accepts numeric ids)
+// Route GET /cart/:id (Only accepts numeric ids)
 app.get('/cart/:id', (req, res) => {
   const { id } = req.params;
   if (isNaN(id)) {
