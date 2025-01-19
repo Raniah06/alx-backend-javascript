@@ -1,16 +1,16 @@
 // 8-api/api.js
-
 const express = require('express');
 const app = express();
 
-// Endpoint for the root route
+// Define the root route
 app.get('/', (req, res) => {
   res.status(200).send('Welcome to the payment system');
 });
 
 // Start the server
-app.listen(7865, () => {
-  console.log('API available on localhost port 7865');
+const PORT = 7865;
+app.listen(PORT, () => {
+  console.log(`API available on localhost port ${PORT}`);
 });
 
-module.exports = app;  // Export app for testing purposes
+module.exports = app; // Export the app for testing
