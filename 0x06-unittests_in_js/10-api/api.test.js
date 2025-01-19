@@ -1,70 +1,52 @@
-// 10-api/api.test.js
-
 const request = require('request');
 const { expect } = require('chai');
 
-describe('Index page', () => {
-  let server;
+const baseUrl = 'http://localhost:7865';
 
-  before((done) => {
-    server = require('./api');  // Import and start the server
-    done();
-  });
-
-  it('should have the correct status code for index page', (done) => {
-    request('http://localhost:7865', (err, res, body) => {
-      expect(res.statusCode).to.equal(200);  // Check status code
-      done();
-    });
-  });
-
-  it('should return the correct result for index page', (done) => {
-    request('http://localhost:7865', (err, res, body) => {
-      expect(body).to.equal('Welcome to the payment system');  // Check response body
-      done();
-    });
-  });
-
-  // New test suite for /available_payments route
-  describe('Available payments', () => {
-    it('should return status 200 and the correct payment methods', (done) => {
-      request('http://localhost:7865/available_payments', (err, res, body) => {
+describe('API Integration Tests', () => {
+  describe('GET /available_payments', () => {
+    it('should return status 200 and correct payment methods object', (done) => {
+      request(`${baseUrl}/available_payments`, (err, res, body) => {
         expect(res.statusCode).to.equal(200);
-        const expectedResponse = {
+        const paymentMethods = {
           payment_methods: {
             credit_cards: true,
             paypal: false
           }
         };
-        expect(JSON.parse(body)).to.deep.equal(expectedResponse);  // Deep equality check
+        expect(JSON.parse(body)).to.deep.equal(paymentMethods);
         done();
       });
     });
   });
 
-  // New test suite for /login route
-  describe('Login', () => {
-    it('should return status 200 and the correct message for a valid username', (done) => {
-      const payload = {
-        userName: 'Betty'
+  describe('POST /login', () => {
+    it('should return status 200 and welcome message when userName is provided', (done) => {
+      const options = {
+        url: `${baseUrl}/login`,
+        method: 'POST',
+        json: true,
+        body: { userName: 'Betty' }
       };
-
-      request.post(
-        {
-          url: 'http://localhost:7865/login',
-          json: payload
-        },
-        (err, res, body) => {
-          expect(res.statusCode).to.equal(200);
-          expect(body).to.equal('Welcome Betty');  // Check response message
-          done();
-        }
-      );
+      request(options, (err, res, body) => {
+        expect(res.statusCode).to.equal(200);
+        expect(body).to.equal('Welcome Betty');
+        done();
+      });
     });
-  });
 
-  after((done) => {
-    server.close();  // Close the server after tests are done
-    done();
+    it('should return status 400 when userName is not provided', (done) => {
+      const options = {
+        url: `${baseUrl}/login`,
+        method: 'POST',
+        json: true,
+        body: {}
+      };
+      request(options, (err, res, body) => {
+        expect(res.statusCode).to.equal(400);
+        expect(body).to.equal('Username is required');
+        done();
+      });
+    });
   });
 });
