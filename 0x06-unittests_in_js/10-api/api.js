@@ -25,6 +25,16 @@ app.post('/login', (req, res) => {
   }
 });
 
+// GET /cart/:id (Only accepts numeric ids)
+app.get('/cart/:id', (req, res) => {
+  const { id } = req.params;
+  if (isNaN(id)) {
+    res.status(404).send('Not Found');
+  } else {
+    res.status(200).send(`Payment methods for cart ${id}`);
+  }
+});
+
 // Start server
 const PORT = 7865;
 app.listen(PORT, () => {
